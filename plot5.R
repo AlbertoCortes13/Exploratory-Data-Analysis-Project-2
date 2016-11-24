@@ -4,8 +4,8 @@ NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
 baltimore <- NEI[NEI$fips == "24510",]
-motor <- SCC[grep("^Motor", SCC$Short.Name, ignore.case = TRUE), "SCC"]
-motorNEI <- NEI[NEI$SCC %in% motor,]
+motor <- SCC[grep("motor", SCC$Short.Name, ignore.case = TRUE), ]$SCC
+motorBaltimore <- baltimore[baltimore$SCC %in% motor, ]
 total <- aggregate(Emissions ~ year, motorNEI, sum)
 
 png(filename = "plot5.png", width = 480, height = 480, units = 'px')
